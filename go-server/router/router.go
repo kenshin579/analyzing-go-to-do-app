@@ -1,9 +1,8 @@
 package router
 
 import (
-	"go-server/middleware"
-
 	"github.com/gorilla/mux"
+	"go-server/middleware"
 )
 
 // Router is exported and used in main.go

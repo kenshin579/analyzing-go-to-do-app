@@ -22,6 +22,8 @@ import (
 var collection *mongo.Collection
 
 // create connection with mongo db
+//todo : 이건 누가 호출하나?
+//- HandleFunc에서 middleware 함수 등록시 호출되는 것으로 판단됨 - 프레임워크 방식으로 동작을 하는 건가?
 func init() {
 	loadTheEnv()
 	createDBInstance()
@@ -39,13 +41,13 @@ func loadTheEnv() {
 func createDBInstance() {
 	// DB connection string
 	connectionString := os.Getenv("DB_URI")
-	
+
 	// Database Name
 	dbName := os.Getenv("DB_NAME")
 
 	// Collection name
 	collName := os.Getenv("DB_COLLECTION_NAME")
-	
+
 	// Set client options
 	clientOptions := options.Client().ApplyURI(connectionString)
 
@@ -79,6 +81,7 @@ func GetAllTask(w http.ResponseWriter, r *http.Request) {
 }
 
 // CreateTask create task route
+//request : {"task":"test"}
 func CreateTask(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -86,7 +89,7 @@ func CreateTask(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	var task models.ToDoList
 	_ = json.NewDecoder(r.Body).Decode(&task)
-	// fmt.Println(task, r.Body)
+	fmt.Println(task, r.Body)
 	insertOneTask(task)
 	json.NewEncoder(w).Encode(task)
 }
