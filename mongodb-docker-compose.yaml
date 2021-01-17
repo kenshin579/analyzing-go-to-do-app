@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  mongodb:
+    image: 'mongo:4.2'
+    container_name: 'mongodb-go-to-do-app'
+    environment:
+      - MONGO_INITDB_DATABASE=go_to_do_app
+#      - MONGO_INITDB_ROOT_USERNAME=root
+#      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - ${HOME}/data/docker/go_to_do_app:/data/db
+    ports:
+      - 27017:27017
